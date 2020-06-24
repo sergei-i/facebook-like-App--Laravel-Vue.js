@@ -1,15 +1,17 @@
 <?php
 
-use App\Http\Controllers\PostController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\AuthUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+    Route::get('auth-user', [AuthUserController::class, 'show']);
 
-    Route::get('/posts', [PostController::class, 'index']);
-    Route::post('/posts', [PostController::class, 'store']);
+    Route::apiResources([
+        '/posts' => 'PostController',
+        '/users' => 'UserController',
+        '/users/{user}/posts' => 'UserPostController',
+        '/friend-request' => 'FriendRequestController',
+        '/friend-request-response' => 'FriendRequestResponseController',
+    ]);
 });
