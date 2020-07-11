@@ -4,14 +4,19 @@
             <div class="flex items-center">
                 <div class="w-8">
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Gnome-stock_person.svg/1024px-Gnome-stock_person.svg.png"
+                        :src="'/storage/' + post.data.attributes.posted_by.data.attributes.profile_image.data.attributes.path"
                         alt="profile image"
-                        class="w-8 h-8 object-cover rounded"
+                        class="w-8 h-8 object-cover rounded-full"
                     >
                 </div>
                 <div class="ml-6">
                     <div class="text-sm font-bold">
-                        {{ post.data.attributes.posted_by.data.attributes.name }}
+                        <router-link
+                            :to="{name: 'user.show', params: {userId: post.data.attributes.posted_by.data.user_id}}"
+                            :key="$route.fullPath"
+                        >
+                            {{ post.data.attributes.posted_by.data.attributes.name }}
+                        </router-link>
                     </div>
                     <div class="text-sm text-gray-600">{{ post.data.attributes.posted_at }}</div>
                 </div>
@@ -23,7 +28,7 @@
 
         <div class="w-full" v-if="post.data.attributes.image">
             <img
-                :src="post.data.attributes.image"
+                :src="'storage/' + post.data.attributes.image"
                 alt="post image"
                 class="w-full"
             >
@@ -94,15 +99,16 @@
             >
                 <div class="w-8">
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Gnome-stock_person.svg/1024px-Gnome-stock_person.svg.png"
+                        :src="'/storage/' + comment.data.attributes.commented_by.data.attributes.profile_image.data.attributes.path"
                         alt="profile image"
-                        class="w-8 h-8 object-cover rounded"
+                        class="w-8 h-8 object-cover rounded-full"
                     >
                 </div>
                 <div class="ml-4 flex-1">
                     <div class="bg-gray-200 rounded-lg p-2 text-sm">
                         <router-link
                             :to="{name: 'user.show', params: {userId: comment.data.attributes.commented_by.data.user_id}}"
+                            :key="$route.fullPath"
                             class="font-bold text-blue-700"
                         >
                             {{ comment.data.attributes.commented_by.data.attributes.name }}

@@ -2,19 +2,26 @@
     <div class="flex flex-col items-center" v-if="status.user === 'success' && user">
         <div class="relative mb-8">
             <div class="w-100 h-64 overflow-hidden z-10">
-                <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/nature-quotes-1557340276.jpg"
-                     alt="user background image"
-                     class="object-cover w-full"
-                >
+                <uploadable-image
+                    image-width="1200"
+                    image-height="500"
+                    image-location="cover"
+                    :user-image="user.data.attributes.cover_image"
+                    classes="object-cover w-full"
+                    alt="user background image"
+                />
             </div>
 
             <div class="absolute flex items-center bottom-0 left-0 -mb-8 ml-12 z-20">
                 <div class="w-32">
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Gnome-stock_person.svg/1024px-Gnome-stock_person.svg.png"
+                    <uploadable-image
+                        image-width="500"
+                        image-height="500"
+                        image-location="profile"
+                        :user-image="user.data.attributes.profile_image"
+                        classes="object-cover w-32 h-32 border-4 border-gray-200 rounded-full shadow-lg"
                         alt="user profile image"
-                        class="object-cover w-32 h-32 border-4 border-gray-200 rounded-full shadow-lg"
-                    >
+                    />
                 </div>
 
                 <p class="ml-4 text-2xl text-gray-100">{{ user.data.attributes.name }}</p>
@@ -58,12 +65,14 @@
 
 <script>
     import Post from '../../components/Post';
+    import UploadableImage from '../../components/UploadableImage';
     import {mapGetters} from 'vuex';
 
     export default {
         name: 'Show',
         components: {
-            Post
+            Post,
+            UploadableImage
         },
         mounted() {
             this.$store.dispatch('fetchUser', this.$route.params.userId);
