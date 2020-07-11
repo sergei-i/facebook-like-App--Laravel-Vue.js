@@ -37,9 +37,9 @@
                 class="px-6 border-b-2 border-white h-full flex items-center"
             >
                 <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Gnome-stock_person.svg/1024px-Gnome-stock_person.svg.png"
+                    :src="'/storage/' + authUser.data.attributes.profile_image.data.attributes.path"
                     alt="profile image"
-                    class="w-8 h-8 object-cover rounded"
+                    class="w-8 h-8 object-cover rounded-full"
                 >
             </router-link>
             <router-link to="/" class="px-6 border-b-2 border-white h-full flex items-center">
